@@ -116,7 +116,7 @@ st.markdown("---")
 # -----------------------------
 st.subheader("🔍 SHAP Feature Importance")
 
-background = np.zeros((10, 78, 1))
+background = np.zeros((10, 20, 1))
 
 explainer = shap.GradientExplainer(
     model,

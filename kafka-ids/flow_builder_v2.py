@@ -310,9 +310,19 @@ try:
                 # Send to Kafka Topic
                 # -----------------------------------------
 
+                # Convert numpy values to normal Python types
+                serializable_features = {
+
+                    k: float(v) if isinstance(v, np.floating)
+                    else int(v) if isinstance(v, np.integer)
+                    else v
+
+                    for k, v in features.items()
+                }
+
                 producer.send(
                     'flow-features',
-                    value=features
+                    value=serializable_features
                 )
 
                 producer.flush()
