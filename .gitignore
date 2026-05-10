@@ -2,7 +2,10 @@ venv/
 __pycache__/
 *.pyc
 .env
+# datasets
 *.csv
+# generated ML files
 *.npy
 *.h5
+*.keras
 *.ckpt
