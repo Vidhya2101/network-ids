@@ -2,6 +2,12 @@ import json
 import time
 from collections import defaultdict
 from kafka import KafkaConsumer
+from kafka import KafkaProducer
+
+producer = KafkaProducer(
+    bootstrap_servers='localhost:9092',
+    value_serializer=lambda x: json.dumps(x).encode('utf-8')
+)
 
 # Kafka Consumer
 consumer = KafkaConsumer(
@@ -108,6 +114,12 @@ try:
             if current_time - flow['last_seen'] > FLOW_TIMEOUT:
 
                 features = compute_features(flow)
+                producer.send(
+                    'flow-features',
+                    value=features
+                )
+
+                producer.flush()
 
                 print("\n[+] Flow Completed")
                 print(f"Flow: {key}")
