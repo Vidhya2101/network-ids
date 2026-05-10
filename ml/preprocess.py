@@ -21,7 +21,10 @@ df.dropna(inplace=True)
 print("[*] Cleaned Dataset Shape:", df.shape)
 
 # Separate features and labels
-X = df.drop(columns=['Label'])
+#X = df.drop(columns=['Label'])
+from cicids_feature_map import FEATURE_COLUMNS
+
+X = df[FEATURE_COLUMNS]
 y = df['Label']
 
 # Encode labels

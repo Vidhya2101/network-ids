@@ -15,15 +15,46 @@ print("[*] SHAP Explainability Started")
 
 # Example live flow
 sample_flow_features = {
-    "duration": 10.5,
-    "packet_count": 25,
-    "byte_count": 5000,
-    "avg_packet_size": 200,
-    "packets_per_sec": 2.3,
-    "bytes_per_sec": 450.2,
-    "syn_flags": 3,
-    "ack_flags": 10,
-    "fin_flags": 0
+
+    "Flow Duration": 10.5,
+
+    "Total Fwd Packets": 25,
+
+    "Total Backward Packets": 10,
+
+    "Total Length of Fwd Packets": 5000,
+
+    "Total Length of Bwd Packets": 2000,
+
+    "Packet Length Mean": 200,
+
+    "Packet Length Std": 45,
+
+    "Max Packet Length": 512,
+
+    "Min Packet Length": 40,
+
+    "Flow Bytes/s": 450.2,
+
+    "Flow Packets/s": 2.3,
+
+    "Flow IAT Mean": 0.12,
+
+    "Flow IAT Std": 0.05,
+
+    "Flow IAT Max": 0.20,
+
+    "Flow IAT Min": 0.01,
+
+    "SYN Flag Count": 3,
+
+    "ACK Flag Count": 10,
+
+    "FIN Flag Count": 0,
+
+    "RST Flag Count": 0,
+
+    "PSH Flag Count": 1
 }
 
 # Build aligned vector
@@ -40,7 +71,8 @@ sample_flow_scaled = sample_flow_scaled.reshape(
 )
 
 # Background data for SHAP
-background = np.zeros((10, 78, 1))
+#background = np.zeros((10, 78, 1))
+background = np.zeros((10, 20, 1))
 
 # Create explainer
 explainer = shap.GradientExplainer(
@@ -60,17 +92,9 @@ values = values.reshape(-1)
 print(f"\n[*] SHAP values shape: {values.shape}")
 
 # Feature names
-feature_names = [
-    "duration",
-    "packet_count",
-    "byte_count",
-    "avg_packet_size",
-    "packets_per_sec",
-    "bytes_per_sec",
-    "syn_flags",
-    "ack_flags",
-    "fin_flags"
-]
+from cicids_feature_map import FEATURE_COLUMNS
+
+feature_names = FEATURE_COLUMNS
 
 print("\n[+] Top Contributing Features")
 
