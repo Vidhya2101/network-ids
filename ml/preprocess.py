@@ -3,6 +3,7 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import SMOTE
 import numpy as np
+import joblib
 
 # Load dataset
 df = pd.read_csv("data/Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv")
@@ -27,9 +28,13 @@ y = df['Label']
 encoder = LabelEncoder()
 y_encoded = encoder.fit_transform(y)
 
+joblib.dump(encoder, "models/label_encoder.pkl")
+
 # Normalize features
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
+
+joblib.dump(scaler, "models/scaler.pkl")
 
 # Balance dataset
 smote = SMOTE()
