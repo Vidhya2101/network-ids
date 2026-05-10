@@ -11,17 +11,21 @@ encoder = joblib.load("models/label_encoder.pkl")
 
 print("[*] Live IDS Inference Started")
 
-sample_flow = np.zeros((1, 78))
+from feature_alignment import build_feature_vector
 
-sample_flow[0][0] = 10.5
-sample_flow[0][1] = 25
-sample_flow[0][2] = 5000
-sample_flow[0][3] = 200
-sample_flow[0][4] = 2.3
-sample_flow[0][5] = 450.2
-sample_flow[0][6] = 3
-sample_flow[0][7] = 10
-sample_flow[0][8] = 0
+sample_flow_features = {
+    "duration": 10.5,
+    "packet_count": 25,
+    "byte_count": 5000,
+    "avg_packet_size": 200,
+    "packets_per_sec": 2.3,
+    "bytes_per_sec": 450.2,
+    "syn_flags": 3,
+    "ack_flags": 10,
+    "fin_flags": 0
+}
+
+sample_flow = build_feature_vector(sample_flow_features)
 
 # Scale features
 sample_flow_scaled = scaler.transform(sample_flow)
