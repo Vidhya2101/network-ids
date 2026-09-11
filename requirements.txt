@@ -1,2 +1,10 @@
-scapy
+streamlit
+pandas
+numpy
+tensorflow
+joblib
+shap
 kafka-python
+scapy
+scikit-learn
+imbalanced-learn
